@@ -1,43 +1,62 @@
-# Engine API
+The Moby Project
+================
 
-The Engine API is an HTTP API used by the command-line client to communicate with the daemon. It can also be used by third-party software to control the daemon.
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/docker/docker)](https://pkg.go.dev/github.com/docker/docker)
+[![Go Report Card](https://goreportcard.com/badge/github.com/docker/docker)](https://goreportcard.com/report/github.com/docker/docker)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/moby/moby/badge)](https://scorecard.dev/viewer/?uri=github.com/moby/moby)
 
-It consists of various components in this repository:
 
-- `api/swagger.yaml` A Swagger definition of the API.
-- `api/types/` Types shared by both the client and server, representing various objects, options, responses, etc. Most are written manually, but some are automatically generated from the Swagger definition. See [#27919](https://github.com/docker/docker/issues/27919) for progress on this.
-- `cli/` The command-line client.
-- `client/` The Go client used by the command-line client. It can also be used by third-party Go programs.
-- `daemon/` The daemon, which serves the API.
+![Moby Project logo](docs/static_files/moby-project-logo.png "The Moby Project")
 
-## Swagger definition
+Moby is an open-source project created by Docker to enable and accelerate software containerization.
 
-The API is defined by the [Swagger](http://swagger.io/specification/) definition in `api/swagger.yaml`. This definition can be used to:
+It provides a "Lego set" of toolkit components, the framework for assembling them into custom container-based systems, and a place for all container enthusiasts and professionals to experiment and exchange ideas.
+Components include container build tools, a container registry, orchestration tools, a runtime and more, and these can be used as building blocks in conjunction with other tools and projects.
 
-1. Automatically generate documentation.
-2. Automatically generate the Go server and client. (A work-in-progress.)
-3. Provide a machine readable version of the API for introspecting what it can do, automatically generating clients for other languages, etc.
+## Principles
 
-## Updating the API documentation
+Moby is an open project guided by strong principles, aiming to be modular, flexible and without too strong an opinion on user experience.
+It is open to the community to help set its direction.
 
-The API documentation is generated entirely from `api/swagger.yaml`. If you make updates to the API, edit this file to represent the change in the documentation.
-Documentation for each API version can be found in the [docs directory](docs/README.md), which also provides a [CHANGELOG.md](docs/CHANGELOG.md). 
+- Modular: the project includes lots of components that have well-defined functions and APIs that work together.
+- Batteries included but swappable: Moby includes enough components to build fully featured container systems, but its modular architecture ensures that most of the components can be swapped by different implementations.
+- Usable security: Moby provides secure defaults without compromising usability.
+- Developer focused: The APIs are intended to be functional and useful to build powerful tools.
+They are not necessarily intended as end user tools but as components aimed at developers.
+Documentation and UX is aimed at developers not end users.
 
-The file is split into two main sections:
+## Audience
 
-- `definitions`, which defines re-usable objects used in requests and responses
-- `paths`, which defines the API endpoints (and some inline objects which don't need to be reusable)
+The Moby Project is intended for engineers, integrators and enthusiasts looking to modify, hack, fix, experiment, invent and build systems based on containers.
+It is not for people looking for a commercially supported system, but for people who want to work and learn with open source code.
 
-To make an edit, first look for the endpoint you want to edit under `paths`, then make the required edits. Endpoints may reference reusable objects with `$ref`, which can be found in the `definitions` section.
+## Relationship with Docker
 
-There is hopefully enough example material in the file for you to copy a similar pattern from elsewhere in the file (e.g. adding new fields or endpoints), but for the full reference, see the [Swagger specification](https://github.com/docker/docker/issues/27919).
+The components and tools in the Moby Project are initially the open source components that Docker and the community have built for the Docker Project.
+New projects can be added if they fit with the community goals. Docker is committed to using Moby as the upstream for the Docker Product.
+However, other projects are also encouraged to use Moby as an upstream, and to reuse the components in diverse ways, and all these uses will be treated in the same way. External maintainers and contributors are welcomed.
 
-`swagger.yaml` is validated by `hack/validate/swagger` to ensure it is a valid Swagger definition. This is useful when making edits to ensure you are doing the right thing.
+The Moby project is not intended as a location for support or feature requests for Docker products, but as a place for contributors to work on open source code, fix bugs, and make the code more useful.
+The releases are supported by the maintainers, community and users, on a best efforts basis only. For customers who want enterprise or commercial support, [Docker Desktop](https://www.docker.com/products/docker-desktop/) and [Mirantis Container Runtime](https://www.mirantis.com/software/mirantis-container-runtime/) are the appropriate products for these use cases.
 
-## Viewing the API documentation
+-----
 
-When you make edits to `swagger.yaml`, you may want to check the generated API documentation to ensure it renders correctly.
+Legal
+=====
 
-Run `make swagger-docs` and a preview will be running at `http://localhost:9000`. Some of the styling may be incorrect, but you'll be able to ensure that it is generating the correct documentation.
+*Brought to you courtesy of our legal counsel. For more context,
+please see the [NOTICE](https://github.com/moby/moby/blob/master/NOTICE) document in this repo.*
 
-The production documentation is generated by vendoring `swagger.yaml` into [docker/docker.github.io](https://github.com/docker/docker.github.io).
+Use and transfer of Moby may be subject to certain restrictions by the
+United States and other governments.
+
+It is your responsibility to ensure that your use and/or transfer does not
+violate applicable laws.
+
+For more information, please see https://www.bis.doc.gov
+
+Licensing
+=========
+Moby is licensed under the Apache License, Version 2.0. See
+[LICENSE](https://github.com/moby/moby/blob/master/LICENSE) for the full
+license text.
